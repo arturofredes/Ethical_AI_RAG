@@ -73,7 +73,7 @@ def process_llm_response(llm_response):
 
 
 #load the models
-model = OpenAI()
+model = ChatOpenAI()
 embeddings = OpenAIEmbeddings()
 
 # Now we can load the persisted database from disk, and use it as normal. 
@@ -84,14 +84,13 @@ retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
 
 reformulating_prompt = ChatPromptTemplate.from_messages([
-("system", "As an assistant within a Retrieval-Augmented Generation (RAG) system, your role is to interpret the conversation with the user and formulate it into a succinct question. This question should accurately capture the user's intent, leveraging specific keywords to ensure that the system's response aligns closely with what the user is seeking. It's crucial to maintain a high level of semantic similarity between the user's request and your question to the system. This approach helps in retrieving the most relevant information or answer from the database, enhancing the user experience."),
+("system", "You are an assistant in a RAG system. You must synthesize the conversation with the user into a question in such a way that it precisely reflects what the user wants to obtain. Make sure to use the keywords so that the semantic similarity is maximized."),
 MessagesPlaceholder(variable_name='chat_history'),
 ("human","{question}"),
 ])
 
 
 
-"""
 @cl.password_auth_callback
 def auth_callback(username: str, password: str):
     # Fetch the user matching username from your database
@@ -102,7 +101,7 @@ def auth_callback(username: str, password: str):
         )
     else:
         return None
-"""
+
 
 
 @cl.on_chat_start
@@ -204,7 +203,7 @@ async def main(message : str):
         # Consultamos la BD con la pregunta reformulada
     llm_response = await qa_chain.acall(text, callbacks = [cl.AsyncLangchainCallbackHandler()] )
     resp = process_llm_response(llm_response) #procesar la respuesta para dar referncias
-
+    print(resp)
     if convo:
         chat_hist.append(AIMessage(llm_response['result'])) #Añadir respuesta al historial
         cl.user_session.set("chat_hist", chat_hist) #guardar los mensajes
