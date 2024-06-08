@@ -12,6 +12,7 @@ You will also need an Open AI API key in the environment variables
 OPENAI_API_KEY = your_key
 ```
 ## Setup login
+To setup the login page follow the following steps. 
 Create a secret key and add it to your environment variables
 ```
 chainlit create-secret
@@ -25,7 +26,7 @@ Once you do this you can run the app
 **user:** admin
 
 **password:** admin
-
+## Use with no Login page
 Alternatively, you can comment the section under the auth decorator and no login will be needed.
 ```
 @cl.password_auth_callback
