@@ -1,5 +1,5 @@
 # Setup
-Setup should be pretty straightforward. The vectorstore is already created in the repo, but if you want to see how to create it check **chatbot.ipynb.**
+Setup should be pretty straightforward. The vectorstore is already created in the repo, but if you want to see how to create it check `chatbot.ipynb`.
 
 Install requirements
 
