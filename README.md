@@ -6,6 +6,11 @@ Install requirements
 ```
 pip install -r requirements.txt
 ```
+
+You will also need an Open AI API key in the environment variables
+```
+OPENAI_API_KEY = your_key
+```
 ## Setup login
 Create a secret key and add it to your environment variables
 ```
@@ -13,7 +18,7 @@ chainlit create-secret
 ```
 
 ```
-CHAINLIT_AUTH_SECRET=
+CHAINLIT_AUTH_SECRET= your_secret
 ```
 Once you do this you can run the app
 
